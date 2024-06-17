@@ -14,34 +14,27 @@ newGifBtn.addEventListener("mousedown", getGIF);
 searchBtn.addEventListener("mousedown", getGIF);
 
 // functions
-function getGIF() {
-  const img = new Image();
-
+async function getGIF() {
   errorMessage.textContent = "";
   gifContainer.replaceChildren();
 
-  fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${search}`,
-    {
-      mode: "cors",
-    }
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      const responseData = response.data;
-
-      if (Array.isArray(responseData) && responseData.length === 0) {
-        errorMessage.textContent = "Sorry, no results found.";
-        return;
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${search}`,
+      {
+        mode: "cors",
       }
-      img.src = responseData.images.original.url;
-    })
-    .catch((error) => {
-      console.error(
-        "There has been a problem with fetching from GIPHY:",
-        error
-      );
-    });
-
-  gifContainer.appendChild(img);
+    );
+    const gifData = await response.json();
+    if (Array.isArray(gifData.data) && gifData.data.length === 0) {
+      errorMessage.textContent = "Sorry, no results found.";
+      console.error("No results found for search");
+      return;
+    }
+    const img = new Image();
+    img.src = gifData.data.images.original.url;
+    gifContainer.appendChild(img);
+  } catch (error) {
+    console.error("There has been a problem with fetching from GIPHY:", error);
+  }
 }
