@@ -15,8 +15,6 @@ searchBtn.addEventListener("mousedown", getGIF);
 
 // functions
 async function getGIF() {
-  const img = new Image();
-
   errorMessage.textContent = "";
   gifContainer.replaceChildren();
 
@@ -35,6 +33,7 @@ async function getGIF() {
         console.error("No results found for search");
         return;
       }
+      const img = new Image();
       img.src = responseData.images.original.url;
       gifContainer.appendChild(img);
     })
