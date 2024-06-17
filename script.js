@@ -36,6 +36,7 @@ async function getGIF() {
         return;
       }
       img.src = responseData.images.original.url;
+      gifContainer.appendChild(img);
     })
     .catch((error) => {
       console.error(
@@ -43,6 +44,4 @@ async function getGIF() {
         error
       );
     });
-
-  gifContainer.appendChild(img);
 }
