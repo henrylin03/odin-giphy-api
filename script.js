@@ -18,31 +18,23 @@ async function getGIF() {
   errorMessage.textContent = "";
   gifContainer.replaceChildren();
 
-  const response = await fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${search}`,
-    {
-      mode: "cors",
-    }
-  );
-
-  response
-    .json()
-    .then((response) => {
-      const responseData = response.data;
-
-      if (Array.isArray(responseData) && responseData.length === 0) {
-        errorMessage.textContent = "Sorry, no results found.";
-        console.error("No results found for search");
-        return;
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${search}`,
+      {
+        mode: "cors",
       }
-      const img = new Image();
-      img.src = responseData.images.original.url;
-      gifContainer.appendChild(img);
-    })
-    .catch((error) => {
-      console.error(
-        "There has been a problem with fetching from GIPHY:",
-        error
-      );
-    });
+    );
+    const gifData = await response.json();
+    if (Array.isArray(gifData.data) && gifData.data.length === 0) {
+      errorMessage.textContent = "Sorry, no results found.";
+      console.error("No results found for search");
+      return;
+    }
+    const img = new Image();
+    img.src = gifData.data.images.original.url;
+    gifContainer.appendChild(img);
+  } catch (error) {
+    console.error("There has been a problem with fetching from GIPHY:", error);
+  }
 }
