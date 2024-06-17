@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+input {
+  padding: 5px;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px 15px;
+}
+
 body {
   width: 50vw;
   display: flex;
