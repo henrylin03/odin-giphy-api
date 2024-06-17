@@ -10,7 +10,17 @@
 <body>
 
   <img src="#" alt="a generated gif from giphy api">
-  <script></script>
+  <script>
+    const API_KEY = "KNd6jJdzmPNQOSSRPCzCZPZnnxpSda56"
+    const img = document.querySelector('img');
+
+    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`,
+      { mode: 'cors' })
+      .then(function (response) {
+        console.log(response.json());
+      });
+
+  </script>
 
 </body>
 
