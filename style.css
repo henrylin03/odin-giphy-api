@@ -6,16 +6,15 @@
 
 body {
   width: 50vw;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: space-around;
+  height: 80dvh;
+  margin: auto;
 }
-
 
 button.new-gif {
   display: block;
   margin: 10px 0;
-  max-width: 150px;
 }
