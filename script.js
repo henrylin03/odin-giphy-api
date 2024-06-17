@@ -2,6 +2,7 @@ const gifContainer = document.querySelector(".gif-container");
 const newGifBtn = document.querySelector(".new-gif");
 const searchbar = document.querySelector("#searchbar");
 const searchBtn = document.querySelector("#search-btn");
+const errorMessage = document.querySelector(".error-message");
 
 const API_KEY = "KNd6jJdzmPNQOSSRPCzCZPZnnxpSda56";
 
@@ -16,6 +17,7 @@ searchBtn.addEventListener("mousedown", getGIF);
 function getGIF() {
   const img = new Image();
 
+  errorMessage.textContent = "";
   gifContainer.replaceChildren();
 
   fetch(
@@ -25,7 +27,15 @@ function getGIF() {
     }
   )
     .then((response) => response.json())
-    .then((response) => (img.src = response.data.images.original.url))
+    .then((response) => {
+      const responseData = response.data;
+
+      if (Array.isArray(responseData) && responseData.length === 0) {
+        errorMessage.textContent = "Sorry, no results found.";
+        return;
+      }
+      img.src = responseData.images.original.url;
+    })
     .catch((error) => {
       console.error(
         "There has been a problem with fetching from GIPHY:",
