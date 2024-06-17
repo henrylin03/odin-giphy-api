@@ -12,3 +12,7 @@ function getGIF() {
     .then((response) => response.json())
     .then((response) => (img.src = response.data.images.original.url));
 }
+
+// event listener on the search button such that when it's mousedowned, the value of the searchbar is used to be added to the end of the url for fetching
+
+// when new gif is clicked again, then the search term is kept and we go again
