@@ -25,7 +25,13 @@ function getGIF() {
     }
   )
     .then((response) => response.json())
-    .then((response) => (img.src = response.data.images.original.url));
+    .then((response) => (img.src = response.data.images.original.url))
+    .catch((error) => {
+      console.error(
+        "There has been a problem with fetching from GIPHY:",
+        error
+      );
+    });
 
   gifContainer.appendChild(img);
 }
