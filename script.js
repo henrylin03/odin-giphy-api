@@ -32,6 +32,7 @@ function getGIF() {
 
       if (Array.isArray(responseData) && responseData.length === 0) {
         errorMessage.textContent = "Sorry, no results found.";
+        console.error("No results found for search");
         return;
       }
       img.src = responseData.images.original.url;
