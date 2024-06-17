@@ -14,7 +14,7 @@ newGifBtn.addEventListener("mousedown", getGIF);
 searchBtn.addEventListener("mousedown", getGIF);
 
 // functions
-function getGIF() {
+async function getGIF() {
   const img = new Image();
 
   errorMessage.textContent = "";
